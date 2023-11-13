@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/test', function () {
+    $users = User::where("name","Aurelien")->update(['email'=>'aurelienfevrier08@gmail.com']);
+    //$users = User::get();
+    dd($users);
 });
 
 Route::get('/dashboard', function () {
