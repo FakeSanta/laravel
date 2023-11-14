@@ -58,9 +58,38 @@ class CarController extends Controller
         return view('car.edit', ['car'=>$car]);
     }
 
-    public function update()
+    public function update(Request $request, $id)
     {
-        
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'brand' => ['required', 'string', 'max:255'],
+            'immat' => ['required', 'string', 'regex:/^[A-Z]{2}-\d{3}-[A-Z]{2}$/i'], // Ajout de 'unique' pour vérifier l'unicité
+            'price' => ['required', 'numeric'], // Utilisation de 'numeric' pour valider le prix comme un nombre
+        ]);
+
+        $car = Car::find($id);
+
+        $car->update([
+            'name'=> $request->name,
+            'brand'=> $request->brand,
+            'immat'=> strtoupper($request->immat),
+            'price'=> $request->price,
+        ]);
+
+        return redirect()->route('car');
     }
+
+    public function delete($id)
+    {
+        $car = Car::find($id);
+
+        if ($car) {
+            $car->delete();
+            return redirect()->route('car')->with('success', 'Car deleted successfully');
+        } else {
+            return redirect()->route('car')->with('error', 'Car not found');
+        }
+    }
+
 
 }

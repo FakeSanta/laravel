@@ -32,6 +32,9 @@
                                     <th scope="col" class="px-6 py-3">
                                         Action
                                     </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Action
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,12 +50,17 @@
                                         {{$car->immat}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{$car->price}}
+                                        {{$car->price}} €
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="{{ route('car.edit', ['id' => $car->id]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                     </td>
-
+                                    <td class="px-6 py-4">
+                                        <form action="{{ route('car.delete', ['id' => $car->id]) }}" method="POST">
+                                            @csrf
+                                            <button class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</p>
+                                        </form>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

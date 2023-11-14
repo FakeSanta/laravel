@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/car/store', [CarController::class, 'store'])->name('car.store');
     Route::get('/car/edit/{id}', [CarController::class, 'edit'])->name('car.edit');
     Route::post('/car/update/{id}', [CarController::class, 'update'])->name('car.update');
+    Route::post('/car/delete/{id}', [CarController::class, 'delete'])->name('car.delete');
+
 
 
 });
