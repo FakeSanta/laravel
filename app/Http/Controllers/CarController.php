@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+
+use App\Models\Car;
+
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -17,10 +19,17 @@ class CarController extends Controller
 {
     public function create(): View
     {
-        return view('car');
+        return view('car.add');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function index()
+    {
+        $cars = Car::all();
+        return view('car', ['cars' => $cars]);
+    }
+
+
+    public function store(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string' , 'max:255'],
