@@ -20,8 +20,8 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    $users = User::where("name","Aurelien")->update(['email'=>'aurelienfevrier08@gmail.com']);
-    //$users = User::get();
+    //$users = User::where("name","Aurelien")->update(['email'=>'aurelien.blizzard@gmail.com']);
+    $users = User::get();
     dd($users);
 });
 
