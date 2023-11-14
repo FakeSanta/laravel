@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarController;
 use App\Models\User;
+use App\Models\Car;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,8 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    $users = User::where("name","Aurelien")->update(['email'=>'aurelienfevrier08@gmail.com']);
-    //$users = User::get();
+    //$users = User::where("name","Aurelien")->update(['email'=>'aurelienfevrier08@gmail.com']);
+    $users = User::get();
     dd($users);
 });
 
@@ -31,11 +32,18 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    //      PROFILE ROUTES
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //      CAR ROUTES
     Route::get('/car', [CarController::class, 'index'])->name('car');
-    Route::post('/car', [CarController::class,'store'])->name('car.add');
+    Route::get('/car/create', [CarController::class, 'create'])->name('car.create');
+    Route::post('/car/store', [CarController::class, 'store'])->name('car.store');
+    Route::get('/car/edit/{id}', [CarController::class, 'edit'])->name('car.edit');
+    Route::post('/car/update/{id}', [CarController::class, 'update'])->name('car.update');
+
 
 });
 

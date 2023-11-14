@@ -10,7 +10,7 @@ class Car extends Model
     use HasFactory;
 
 
-    protected $table = 'car';
+    protected $table = 'cars';
 
     protected $fillable = [
         'name',

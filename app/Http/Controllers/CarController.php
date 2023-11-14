@@ -19,7 +19,7 @@ class CarController extends Controller
 {
     public function create(): View
     {
-        return view('car.add');
+        return view('car.create');
     }
 
     public function index()
@@ -32,17 +32,35 @@ class CarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string' , 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'brand' => ['required', 'string', 'max:255'],
-            'immat' => ['required', 'string', 'regex:/^[A-Z]{2}-\d{3}-[A-Z]{2}$/', 'unique'],
-            'price' => ['required', 'decimal'],
+            'immat' => ['required', 'string', 'regex:/^[A-Z]{2}-\d{3}-[A-Z]{2}$/i', 'unique:cars,immat'], // Ajout de 'unique' pour vérifier l'unicité
+            'price' => ['required', 'numeric'], // Utilisation de 'numeric' pour valider le prix comme un nombre
         ]);
 
         $car = Car::create([
             'name' => $request->name,
             'brand' => $request->brand,
-            'immat' => $request->immat,
+            'immat' => strtoupper($request->immat), // Convertir l'immatriculation en majuscules
             'price' => $request->price,
         ]);
+
+        if (!$car) {
+            // Affichez des messages d'erreur ou effectuez des actions en conséquence
+            dd('Erreur lors de l\'ajout à la base de données');
+        }
+        return redirect()->route('car'); // Assurez-vous que la route 'car.index' existe
     }
+
+    public function edit($id): View
+    {
+        $car = Car::find($id);
+        return view('car.edit', ['car'=>$car]);
+    }
+
+    public function update()
+    {
+        
+    }
+
 }
