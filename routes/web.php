@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CarController;
 use App\Models\User;
 
 /*
@@ -20,8 +21,8 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    //$users = User::where("name","Aurelien")->update(['email'=>'aurelien.blizzard@gmail.com']);
-    $users = User::get();
+    $users = User::where("name","Aurelien")->update(['email'=>'aurelienfevrier08@gmail.com']);
+    //$users = User::get();
     dd($users);
 });
 
@@ -33,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/car', [CarController::class, 'index'])->name('car');
+    Route::post('/car', [CarController::class,'store'])->name('car.add');
 });
 
 require __DIR__.'/auth.php';
