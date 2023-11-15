@@ -29,7 +29,7 @@ class PropertyController extends Controller
         ]);
 
         $asset = Assets::create([
-            "nom" => $request['name'],
+            "nom" => ucwords($request['name']),
         ]);
 
         return redirect()->route('property.index');
@@ -37,7 +37,8 @@ class PropertyController extends Controller
 
     function store(Request $request){
         $request->validate([
-            "type" => ['required', "in:Appartement,Maison"],
+            "type" => ['required', "in:appartement,house"],
+            "city" => ['required', 'string'],
             "price" => ['required', 'numeric'],
             "surface" => ['required', 'numeric'],
             "room" => ['required', 'integer'],
@@ -45,7 +46,8 @@ class PropertyController extends Controller
         ]);
 
         $property = Property::create([
-            "type" => $request['type'],
+            "type" => ucwords($request['type']),
+            "city" => ucwords($request['city']),
             "surface" => $request['surface'],
             "price" => $request['price'],
             "room" => $request['room'],

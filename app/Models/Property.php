@@ -13,12 +13,13 @@ class Property extends Model
 
     protected $fillable = [
         'type',
+        'city',
         'surface',
         'price',
         'room',
     ];
 
     public function assets(){
-        return $this->belongsToMany(Atout::class);
+        return $this->belongsToMany(Assets::class);
     }
 }
