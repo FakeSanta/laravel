@@ -24,6 +24,7 @@ class CarController extends Controller
 
     public function index()
     {
+        $isAdmin = auth()->user()->isAdmin();
         $cars = Car::all();
         return view('car', ['cars' => $cars]);
     }

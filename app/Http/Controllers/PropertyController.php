@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Property;
 use App\Models\Assets;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -10,7 +11,8 @@ class PropertyController extends Controller
 {
     function index(): view
     {
-        $properties = Property::all();
+        $isAdmin = auth()->user()->isAdmin();
+        $properties = Property::with('assets')->get();
         return view('property.index', compact('properties'));
     }
 
@@ -43,7 +45,12 @@ class PropertyController extends Controller
             "surface" => ['required', 'numeric'],
             "room" => ['required', 'integer'],
             "assets" => ['array'],
+            "picture" => ['image', 'mimes:jpeg,png,jpg,gif,jfif', 'max:2048'],
         ]);
+
+        if($request->hasFile('picture')){
+            $imagePath = $request->file('picture')->store('picture', 'public');
+        }
 
         $property = Property::create([
             "type" => ucwords($request['type']),
@@ -51,6 +58,7 @@ class PropertyController extends Controller
             "surface" => $request['surface'],
             "price" => $request['price'],
             "room" => $request['room'],
+            "picture" => $imagePath,
         ]);
 
         if(isset($request['assets'])){

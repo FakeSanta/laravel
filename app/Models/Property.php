@@ -17,6 +17,7 @@ class Property extends Model
         'surface',
         'price',
         'room',
+        'picture',
     ];
 
     public function assets(){
