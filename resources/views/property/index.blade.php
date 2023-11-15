@@ -9,6 +9,21 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <div class="flex gap-3">
+                        <div class="w-80 flex">
+                            <label for="assets" class="flex-shrink-0 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Agence :</label>
+                            <select id="room" name="room" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="">La Foret</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
                     @if(auth()->user()->isAdmin())
                         <div class="flex gap-2">
                             <form action="{{ route('property.create') }}" method="GET">
@@ -23,31 +38,33 @@
                     @endif
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
                         @foreach($properties as $property)
-                            <div class="grid grid-cols-1 grid-rows-7 gap-2 border border-gray-300 px-2 py-1 rounded">
-                                <div >
-                                    <img src="{{ asset('storage/' . $property->picture) }}" class="w-64 h-32 object-cover">
+                            <a href="{{ route('property.show', ['id' => $property->id]) }}">
+                                <div class="grid grid-cols-1 grid-rows-7 gap-2 border border-gray-300 px-2 py-1 rounded">
+                                    <div>
+                                        <img src="{{ asset('storage/' . $property->picture) }}" class="w-64 h-32 object-cover rounded">
+                                    </div>
+                                    <div >
+                                        {{ $property->type }}
+                                    </div>
+                                    <div >
+                                        {{ $property->city }}
+                                    </div>
+                                    <div >
+                                        {{ number_format($property->price, 0, ',',' ') }} £
+                                    </div>
+                                    <div >
+                                        {{ $property->surface }} m²
+                                    </div>
+                                    <div >
+                                        {{ $property->room }} rooms
+                                    </div>
+                                    <div class="flex gap-1">
+                                        @foreach ($property->assets as $asset)
+                                            <span class="border border-gray-300 px-2 py-1 rounded bg-blue-100">{{ $asset->nom }}</span>
+                                        @endforeach
+                                    </div>
                                 </div>
-                                <div >
-                                    {{ $property->type }}
-                                </div>
-                                <div >
-                                    {{ $property->city }}
-                                </div>
-                                <div >
-                                    {{ number_format($property->price, 0, ',',' ') }} £
-                                </div>
-                                <div >
-                                    {{ $property->surface }} m²
-                                </div>
-                                <div >
-                                    {{ $property->room }} rooms
-                                </div>
-                                <div class="flex gap-1">
-                                    @foreach ($property->assets as $asset)
-                                        <span class="border border-gray-300 px-2 py-1 rounded bg-blue-100">{{ $asset->nom }}</span>
-                                    @endforeach
-                                </div>
-                            </div>
+                            </a>
                         @endforeach
                     </div>
                 </div>

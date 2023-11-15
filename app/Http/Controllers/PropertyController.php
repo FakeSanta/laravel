@@ -67,4 +67,12 @@ class PropertyController extends Controller
 
         return redirect()->route('property.index');
     }
+
+    public function show($id): view
+    {
+        $property = Property::find($id);
+        return view('property.show', ['property' => $property]);
+    }
+
+
 }

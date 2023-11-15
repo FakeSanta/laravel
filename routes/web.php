@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/property/store', [PropertyController::class, 'store'])->name('property.store');
     Route::get('/property/asset/create', [PropertyController::class, 'create_asset'])->name('property.asset.create');
     Route::post('/property/asset/store', [PropertyController::class, 'store_asset'])->name('property.asset.store');
+    Route::get('/property/show/{id}', [PropertyController::class, 'show'])->name('property.show');
 
 });
 
