@@ -3,8 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\PropertyController;
 use App\Models\User;
 use App\Models\Car;
+use App\Models\Assets;
+use App\Models\Property;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +49,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/car/update/{id}', [CarController::class, 'update'])->name('car.update');
     Route::post('/car/delete/{id}', [CarController::class, 'delete'])->name('car.delete');
 
-
+    //      PROPERTY ROUTES
+    Route::get('/property', [PropertyController::class, 'index'])->name('property.index');
+    Route::get('/property/create', [PropertyController::class, 'create'])->name('property.create');
+    Route::post('/property/store', [PropertyController::class, 'store'])->name('property.store');
+    Route::get('/property/asset/create', [PropertyController::class, 'create_asset'])->name('property.asset.create');
+    Route::post('/property/asset/store', [PropertyController::class, 'store_asset'])->name('property.asset.store');
 
 });
 
