@@ -18,9 +18,15 @@ class Property extends Model
         'price',
         'room',
         'picture',
+        "agency_id",
     ];
 
     public function assets(){
         return $this->belongsToMany(Assets::class);
+    }
+
+    public function agency()
+    {
+        return $this->belongsTo(Agency::class);
     }
 }

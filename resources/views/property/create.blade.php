@@ -11,6 +11,14 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                 <div class="mb-6">
+                    <label for="agency" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Which Agency</label>
+                    <select id="agency" name="agency" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        @foreach($agencies as $agency)
+                            <option value="{{ $agency->id }}">{{ $agency->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-6">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type of property</label>
                     <div class="flex items-center mb-4">
                         <input id="house" type="radio" value="house" name="type" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -34,19 +42,19 @@
                     <input type="number" id="surface" name="surface" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
                 </div>
                 <div class="mb-6">
-                    <label for="assets" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of Rooms</label>
-                    <select id="room" name="room" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        @for ($i=1; $i <= 10; $i++)
-                            <option value="{{ $i }}">{{ $i }}</option>
-                        @endfor
-                    </select>
-                </div>
-                <div class="mb-6">
                     <label for="assets" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Assets of the property</label>
                     <select id="assets" name="assets[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" multiple>
                         @foreach($assets as $asset)
                             <option value="{{ $asset->id }}">{{ $asset->nom }}</option>
                         @endforeach
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label for="assets" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of Rooms</label>
+                    <select id="room" name="room" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        @for ($i=1; $i <= 10; $i++)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
                     </select>
                 </div>
                 <div class="mb-6">
