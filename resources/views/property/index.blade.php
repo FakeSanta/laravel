@@ -11,8 +11,9 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex gap-3">
                         <div class="w-80 flex">
-                            <label for="agency" class="flex-shrink-0 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Agence :</label>
+                            <label for="agency" class="flex-shrink-0 flex items-center text-sm font-medium text-gray-900 dark:text-white">Agency : &nbsp</label>
                             <select id="agency" name="agency" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="all">All Agencies</option>
                                 @foreach($agencies as $agency)
                                 <option value="{{ $agency->id }}">{{ $agency->name }}</option>
                                 @endforeach
@@ -44,8 +45,8 @@
                     @endif
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
                         @foreach($properties as $property)
-                            <a href="{{ route('property.show', ['id' => $property->id]) }}">
-                                <div class="grid grid-cols-1 grid-rows-7 gap-2 border border-gray-300 px-2 py-1 rounded property">
+                                <div data-agency-id="{{ $property->agency_id }}" class="grid grid-cols-1 grid-rows-7 gap-2 border border-gray-300 px-2 py-1 rounded property visible pointer-events-none">
+                                    <a href="{{ route('property.show', ['id' => $property->id]) }}">
                                     <div>
                                         <img src="{{ asset('storage/' . $property->picture) }}" class="w-64 h-32 object-cover rounded">
                                     </div>
@@ -69,8 +70,8 @@
                                             <span class="border border-gray-300 px-2 py-1 rounded bg-blue-100">{{ $asset->nom }}</span>
                                         @endforeach
                                     </div>
+                                    </a>
                                 </div>
-                            </a>
                         @endforeach
                     </div>
                 </div>
@@ -89,9 +90,11 @@
                     const propertyAgencyId = property.getAttribute('data-agency-id');
 
                     if (selectedAgencyId === 'all' || selectedAgencyId === propertyAgencyId) {
-                        property.style.display = 'block';
+                        property.classList.remove('hidden');
+                        property.classList.add('pointer-events-auto');
                     } else {
-                        property.style.display = 'none';
+                        property.classList.add('hidden');
+                        property.classList.remove('pointer-events-auto');
                     }
                 });
             });
