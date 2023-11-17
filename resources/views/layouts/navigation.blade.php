@@ -22,7 +22,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('property.index')" :active="request()->routeIs('property.index')">
+                    <x-nav-link :href="route('property.index')" :active="str_starts_with(request()->route()->getName(), 'property.')">
                         {{ __('Property') }}
                     </x-nav-link>
                 </div>
