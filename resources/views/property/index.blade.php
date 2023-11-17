@@ -45,7 +45,7 @@
                     @endif
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
                         @foreach($properties as $property)
-                                <div data-agency-id="{{ $property->agency_id }}" class="grid grid-cols-1 grid-rows-7 gap-2 border border-gray-300 px-2 py-1 rounded property visible pointer-events-none">
+                                <div data-agency-id="{{ $property->agency_id }}" class="grid grid-cols-1 grid-rows-7 gap-2 border border-gray-300 px-2 py-1 rounded property visible pointer-events-auto shadow-md">
                                     <a href="{{ route('property.show', ['id' => $property->id]) }}">
                                     <div>
                                         <img src="{{ asset('storage/' . $property->picture) }}" class="w-64 h-32 object-cover rounded">
@@ -65,7 +65,7 @@
                                     <div >
                                         {{ $property->room }} rooms
                                     </div>
-                                    <div class="flex gap-1">
+                                    <div class="flex gap-1 flex-wrap">
                                         @foreach ($property->assets as $asset)
                                             <span class="border border-gray-300 px-2 py-1 rounded bg-blue-100">{{ $asset->nom }}</span>
                                         @endforeach
