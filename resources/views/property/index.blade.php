@@ -45,33 +45,48 @@
                     @endif
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
                         @foreach($properties as $property)
-                                <div data-agency-id="{{ $property->agency_id }}" class="grid grid-cols-1 grid-rows-7 gap-2 border border-gray-300 px-2 py-1 rounded property visible pointer-events-auto shadow-md">
-                                    <a href="{{ route('property.show', ['id' => $property->id]) }}">
-                                    <div>
-                                        <img src="{{ asset('storage/' . $property->picture) }}" class="w-64 h-32 object-cover rounded">
-                                    </div>
-                                    <div >
-                                        {{ $property->type }}
-                                    </div>
-                                    <div >
-                                        {{ $property->city }}
-                                    </div>
-                                    <div >
-                                        {{ number_format($property->price, 0, ',',' ') }} £
-                                    </div>
-                                    <div >
-                                        {{ $property->surface }} m²
-                                    </div>
-                                    <div >
-                                        {{ $property->room }} rooms
-                                    </div>
-                                    <div class="flex gap-1 flex-wrap">
-                                        @foreach ($property->assets as $asset)
-                                            <span class="border border-gray-300 px-2 py-1 rounded bg-blue-100">{{ $asset->nom }}</span>
-                                        @endforeach
-                                    </div>
-                                    </a>
+                        <div data-agency-id="{{ $property->agency_id }}" class="relative grid grid-cols-1 grid-rows-7 gap-2 border border-gray-300 px-2 py-1 rounded property visible pointer-events-auto shadow-md">
+                            @if(auth()->user()->isAdmin())
+                                <form action="{{   route('property.delete' , ['id' => $property->id])   }}" method="POST">
+                                    @csrf
+                                    <button type="submit">
+                                        <div class="absolute top-0 right-0 p-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 text-red-500">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </form>
+                            @endif
+                                <a href="{{ route('property.show', ['id' => $property->id]) }}">
+                                <div>
+                                    <img src="{{ asset('storage/' . $property->picture) }}" class="w-64 h-32 object-cover rounded">
                                 </div>
+                                <div >
+                                    {{ $property->type }}
+                                </div>
+                                <div >
+                                    {{ $property->city }}
+                                </div>
+                                <div >
+                                    {{ number_format($property->price, 0, ',',' ') }} £
+                                </div>
+                                <div >
+                                    {{ $property->surface }} m²
+                                </div>
+                                <div >
+                                    {{ $property->room }} rooms
+                                </div>
+                                <!-- ... (autres informations sur la propriété) -->
+                                <div class="flex gap-1 flex-wrap">
+                                    @foreach ($property->assets as $asset)
+                                        <span class="border border-gray-300 px-2 py-1 rounded bg-blue-100 dark:text-black">
+                                            {{ $asset->nom }}
+                                        </span>
+                                    @endforeach
+                                </div>
+                            </a>
+                        </div>
                         @endforeach
                     </div>
                 </div>

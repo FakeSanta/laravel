@@ -52,6 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/property/show/{id}', [PropertyController::class, 'show'])->name('property.show');
     Route::get('/property/agency/create', [PropertyController::class, 'create_agency'])->name('property.agency.create');
     Route::post('/property/agency/store', [PropertyController::class, 'store_agency'])->name('property.agency.store');
+    Route::post('/property/delete/{id}', [PropertyController::class, 'delete'])->name('property.delete');
+
 
 
 });

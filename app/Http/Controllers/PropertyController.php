@@ -6,11 +6,19 @@ use App\Models\Agency;
 use App\Models\Property;
 use App\Models\Assets;
 use App\Models\User;
+use App\Services\NominatimService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PropertyController extends Controller
 {
+    protected $nominatimService;
+
+    public function __construct(NominatimService $nominatimService)
+    {
+        $this->nominatimService = $nominatimService;
+    }
+
     function index(): view
     {
         $isAdmin = auth()->user()->isAdmin();
@@ -19,6 +27,12 @@ class PropertyController extends Controller
 
         return view('property.index', compact('properties', 'agencies'));
     }
+
+    function delete($id)
+    {
+        $property = Property::findOrFail($id)->delete();
+        return redirect()->route('property.index');
+    }    
 
     function create(){
         $assets = Assets::all();
@@ -78,7 +92,9 @@ class PropertyController extends Controller
     public function show($id): view
     {
         $property = Property::find($id);
-        return view('property.show', ['property' => $property]);
+        $city = $property->city;
+        $geocodeResult = $this->nominatimService->geocode($city);
+        return view('property.show', ['property' => $property, 'geocodeResult' => $geocodeResult]);
     }
 
     function create_agency(){

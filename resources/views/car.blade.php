@@ -54,7 +54,7 @@
                                         {{$car->immat}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{$car->price}} €
+                                        {{ number_format($car->price, 0, ',',' ') }} €
                                     </td>
                                     @if(auth()->user()->isAdmin())
                                     <td class="px-6 py-4">

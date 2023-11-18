@@ -33,11 +33,32 @@
                                 <span class="border border-gray-300 px-2 py-1 rounded bg-blue-100">{{ $asset->nom }}</span>
                             @endforeach
                         </div>
-                        <div class="col-start-2 row-start-1">4</div>
+                        <div class="col-start-2 row-start-1" id="map">
+                            
+                        </div>
                         <div class="col-start-3 row-start-1">5</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    // Récupérer les coordonnées de la vue
+    var latitude = {{ $geocodeResult[0]['lat'] }};
+    var longitude = {{ $geocodeResult[0]['lon'] }};
+
+    // Initialiser la carte Leaflet
+    var map = L.map('map').setView([latitude, longitude], 13);
+
+    // Ajouter une couche de tuiles OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Ajouter un marqueur aux coordonnées récupérées
+    L.marker([latitude, longitude]).addTo(map)
+        .bindPopup('Propriété: {{ $property->name }}<br>Coordonnées: ' + latitude + ', ' + longitude)
+        .openPopup();
+</script>
+
 </x-app-layout>
